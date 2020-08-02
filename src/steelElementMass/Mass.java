@@ -16,19 +16,19 @@ public class Mass {
         System.out.print("Plate thickness: ");
         int t = input.nextInt();
 
-        System.out.println("Specify dimmensions: ");
+        System.out.println("Specify dimensions ");
         System.out.print("Width [mm]: ");
         int L = input.nextInt();
         System.out.print("Length [mm]: ");
         int H = input.nextInt();
-        System.out.println("Specify quantity: ");
+        System.out.println("Specify quantity");
         System.out.print("Quantity: ");
         int n = input.nextInt();
 
         double c = (g * t * L * H) / 1000000;
         double d = c * n;
 
-        System.out.println("Part mass: " + df2.format(c) + " [kg]");
+        System.out.println("Mass of a single part: " + df2.format(c) + " [kg]");
         System.out.println("Mass of all parts: " + df2.format(d) + " [kg]");
 
     }
