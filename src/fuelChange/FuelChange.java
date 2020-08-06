@@ -35,10 +35,9 @@ public class FuelChange {
         DecimalFormat df2 = new DecimalFormat("#.##");
         double pricePerKWH = pricePerUnit / (caloricValue * heatSourceEfficient);
         System.out.println("Price of 1kWh with " + fuelName + " is: " + df2.format(pricePerKWH) + " PLN");
-
     }
 
-
+    //    MAIN executable methods
     public static void main(String[] args) {
         // Script description
         System.out.println(" ");
