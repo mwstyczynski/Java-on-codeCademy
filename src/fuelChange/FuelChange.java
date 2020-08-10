@@ -15,37 +15,50 @@ public class FuelChange {
     protected String fuelName;
     protected double pricePerUnit;
     protected double caloricValue;
-    protected double heatSourceEfficient;
+    protected double heatSourceEfficiency;
 
     //    Constructor in which variables are declared.
-    FuelChange(String name, double price, double cal, double effi) {
-        this.fuelName = name;
-        this.pricePerUnit = price;
-        this.caloricValue = cal;
-        this.heatSourceEfficient = effi;
-    }
+//    FuelChange(String name, double price, double cal, double effi) {
+//        this.fuelName = name;
+//        this.pricePerUnit = price;
+//        this.caloricValue = cal;
+//        this.heatSourceEfficient = effi;
+//    }
 
     //    Methods to be called FROM CHILD (different in every fuel, because of units tonne/m3/kg kWh/kg kWh/tonne, etc - multiple variables)
     public void defineFuel() {
         System.out.println("Current energy source                   " + fuelName);
         System.out.println("Caloric value                           " + caloricValue + " kWh/kg");
-        System.out.println("Average cost                            " + pricePerUnit + " PLN per ");
-        System.out.println("Common " + fuelName + " heat source efficiency    " + heatSourceEfficient * 100 + " %");
+        System.out.println("Average cost                            " + pricePerUnit + " PLN per tone");
+        System.out.println("Common heat source efficiency           " + heatSourceEfficiency * 100 + " %");
 
         DecimalFormat df2 = new DecimalFormat("#.##");
-        double pricePerKWH = pricePerUnit / (caloricValue * heatSourceEfficient);
-        System.out.println("Price of 1kWh using " + fuelName + "              " + df2.format(pricePerKWH) + " PLN");
+        double pricePerKWH = pricePerUnit / (caloricValue * heatSourceEfficiency);
+        System.out.println("Price of 1kWh                           " + df2.format(pricePerKWH) + " PLN");
     }
 
-    //    Methods to be called FROM CHILD
-    public void fuelTransition(int currentFuel) {
+    //    Comparison of current and planned fuels coefficients
+    public void compareFuels() {
         System.out.println("Transition                   " + fuelName + " ---> ");
         // ...
 
         DecimalFormat df2 = new DecimalFormat("#.##");
-        double pricePerKWH = pricePerUnit / (caloricValue * heatSourceEfficient);
+        double pricePerKWH = pricePerUnit / (caloricValue * heatSourceEfficiency);
         System.out.println("Price of 1kWh using " + fuelName + "              " + df2.format(pricePerKWH) + " PLN");
     }
+
+    //    Percentage calculations of the transition
+    public void fuelTransition() {
+        System.out.println("Transition                        " + fuelName + " ---> ");
+        System.out.println("Caloric value                     " + fuelName + " ---> ");
+        System.out.println("Cost of 1kWh                      " + fuelName + " ---> ");
+        System.out.println("Percentage of previous cost       " + fuelName + " ---> ");
+
+        DecimalFormat df2 = new DecimalFormat("#.##");
+        double pricePerKWH = pricePerUnit / (caloricValue * heatSourceEfficiency);
+        System.out.println("Price of 1kWh using " + fuelName + "              " + df2.format(pricePerKWH) + " PLN");
+    }
+
 
     //    MAIN executable methods
     public static void main(String[] args) {
@@ -106,7 +119,7 @@ public class FuelChange {
             System.out.println("8");
 
         } else if (currentFuel == 9) {
-            FuelChange pellet = new FuelChange("Pellet", 600, 4986.11, 0.93);
+            CurrentFuel pellet = new CurrentFuel("Pellet", 600, 4986.11, 0.93);
             pellet.defineFuel();
 
         } else if (currentFuel == 10) {
@@ -123,32 +136,12 @@ public class FuelChange {
 
         }
 
-//        System.out.println ("Your current energy source is: " + usersFuel);
-//        System.out.println ("It's caloric value is: " + usersFuel + "kWh/kg");
-
-        System.out.println(" ");
-        System.out.println("Choose your planned energy source by inserting a corresponding number: ");
-        System.out.println(" ");
-
         // User chooses new fuel
-        System.out.println("Choose your current energy source by inserting a corresponding number: ");
-        System.out.println("natural gas           1 ");
-        System.out.println("heating oil           2 ");
-        System.out.println("liquid gas            3 ");
-        System.out.println("hard coal             4 ");
-        System.out.println("coke (chark)          5 ");
-        System.out.println("coomb (coal dust)     6 ");
-        System.out.println("lumber wood           7 ");
-        System.out.println("woodchips, sawdust   8 ");
-        System.out.println("pellet                9 ");
-        System.out.println("wood waste            10");
-        System.out.println("electric energy       11");
-        System.out.println("heat pump COP=5.0     12");
-        System.out.println("heat pump COP=3.7     13");
+        System.out.println(" ");
+        System.out.println("Choose your current energy source by inserting a corresponding number from the list above. ");
         System.out.println(" ");
 
         int newFuel = scan.nextInt();
-
 
         if (newFuel == currentFuel) {
             System.out.println("You have picked the same fuel as your current energy source. Please start over.");
@@ -156,8 +149,9 @@ public class FuelChange {
             System.out.println("1");
 
         } else if (newFuel == 2) {
-            FuelChange coal = new FuelChange("Coal", 690, 7555.56, 0.75);
-            coal.fuelTransition(currentFuel);
+            PlannedFuel coal = new PlannedFuel("Coal", 690, 7555.56, 0.75);
+            coal.defineFuel();
+//          coal.fuelTransition(currentFuel);
 
         }
 
