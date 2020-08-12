@@ -75,8 +75,8 @@ public class FuelChange {
         System.out.println("Pellet                9 ");
         System.out.println("Wood waste            10");
         System.out.println("Electric energy       11");
-        System.out.println("Heat pump COP=5.0     12");
-        System.out.println("Heat pump COP=3.7     13");
+        System.out.println("Low temp. heat pump   12");
+        System.out.println("Heat pump             13");
         System.out.println(" ");
 
         Scanner scan = new Scanner(System.in);
@@ -125,7 +125,7 @@ public class FuelChange {
             CurrentFuel lowPump = new CurrentFuel("Low temp. heat pump", 0.55, 1, 5);
             lowPump.defineFuel();
         } else if (currentFuel == 13) {
-            CurrentFuel pump = new CurrentFuel("Heat pump COP=3.7", 0.55, 1, 3.7);
+            CurrentFuel pump = new CurrentFuel("Heat pump", 0.55, 1, 3.7);
             pump.defineFuel();
 
         }
@@ -177,10 +177,11 @@ public class FuelChange {
             PlannedFuel lowPump = new PlannedFuel("Low temp. heat pump", 0.55, 1, 5);
             lowPump.defineFuel();
         } else if (plannedFuel == 13) {
-            PlannedFuel pump = new PlannedFuel("Heat pump COP=3.7", 0.55, 1, 3.7);
+            PlannedFuel pump = new PlannedFuel("Heat pump", 0.55, 1, 3.7);
             pump.defineFuel();
         }
 
+//        fuelTransition();
 
     }
 
