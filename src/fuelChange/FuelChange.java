@@ -7,6 +7,7 @@ It calculates coefficients regarding profitability of fuel source change in term
 All data was gathered while working as technical advisor in the renewable energy department. */
 
 // Importing utilities
+
 import java.util.Scanner;
 import java.text.DecimalFormat;
 
@@ -17,15 +18,8 @@ public class FuelChange {
     protected double caloricValue;
     protected double heatSourceEfficiency;
 
-    //    Constructor in which variables are declared.
-//    FuelChange(String name, double price, double cal, double effi) {
-//        this.fuelName = name;
-//        this.pricePerUnit = price;
-//        this.caloricValue = cal;
-//        this.heatSourceEfficient = effi;
-//    }
-
     //    Methods to be called FROM CHILD (different in every fuel, because of units tonne/m3/kg kWh/kg kWh/tonne, etc - multiple variables)
+    //    1. Define fuel
     public void defineFuel() {
         System.out.println("Current energy source                   " + fuelName);
         System.out.println("Caloric value                           " + caloricValue + " kWh/kg");
@@ -37,7 +31,7 @@ public class FuelChange {
         System.out.println("Price of 1kWh                           " + df2.format(pricePerKWH) + " PLN");
     }
 
-    //    Comparison of current and planned fuels coefficients
+    //    2. Comparison of current and planned fuels coefficients
     public void compareFuels() {
         System.out.println("Transition                   " + fuelName + " ---> ");
         // ...
@@ -47,12 +41,12 @@ public class FuelChange {
         System.out.println("Price of 1kWh using " + fuelName + "              " + df2.format(pricePerKWH) + " PLN");
     }
 
-    //    Percentage calculations of the transition
+    //    3. Percentage calculations of the transition
     public void fuelTransition() {
         System.out.println("Transition                        " + fuelName + " ---> ");
-        System.out.println("Caloric value                     " + fuelName + " ---> ");
-        System.out.println("Cost of 1kWh                      " + fuelName + " ---> ");
-        System.out.println("Percentage of previous cost       " + fuelName + " ---> ");
+        System.out.println("Caloric value                     " + caloricValue + " ---> ");
+        System.out.println("Cost of 1kWh                      " + pricePerUnit + " ---> ");
+        System.out.println("Percentage of previous cost       " + "???" + " ---> ");
 
         DecimalFormat df2 = new DecimalFormat("#.##");
         double pricePerKWH = pricePerUnit / (caloricValue * heatSourceEfficiency);
@@ -70,19 +64,19 @@ public class FuelChange {
         System.out.println(" ");
         // User chooses current fuel
         System.out.println("Choose your current energy source by inserting a corresponding number: ");
-        System.out.println("natural gas           1 ");
-        System.out.println("heating oil           2 ");
-        System.out.println("liquid gas            3 ");
-        System.out.println("hard coal             4 ");
-        System.out.println("coke (chark)          5 ");
-        System.out.println("coomb (coal dust)     6 ");
-        System.out.println("lumber wood           7 ");
-        System.out.println("woodchips - sawdust   8 ");
-        System.out.println("pellet                9 ");
-        System.out.println("wood waste            10");
-        System.out.println("electric energy       11");
-        System.out.println("heat pump COP=5.0     12");
-        System.out.println("heat pump COP=3.7     13");
+        System.out.println("Natural gas           1 ");
+        System.out.println("Heating oil           2 ");
+        System.out.println("Liquid gas            3 ");
+        System.out.println("Hard coal             4 ");
+        System.out.println("Coke (chark)          5 ");
+        System.out.println("Coomb (coal dust)     6 ");
+        System.out.println("Lumber wood           7 ");
+        System.out.println("Woodchips - sawdust   8 ");
+        System.out.println("Pellet                9 ");
+        System.out.println("Wood waste            10");
+        System.out.println("Electric energy       11");
+        System.out.println("Heat pump COP=5.0     12");
+        System.out.println("Heat pump COP=3.7     13");
         System.out.println(" ");
 
         Scanner scan = new Scanner(System.in);
@@ -95,44 +89,44 @@ public class FuelChange {
 //                   defineFuel(); method is in main class, but values used come from child classes
 
         if (currentFuel == 1) {
-            System.out.println("1");
-
+            CurrentFuel gas = new CurrentFuel("Natural gas", 2.17, 34.40, 1.05);
+            gas.defineFuel();
         } else if (currentFuel == 2) {
-            System.out.println("2");
-
+            CurrentFuel oil = new CurrentFuel("Heating oil", 3.99, 27.20, 0.88);
+            oil.defineFuel();
         } else if (currentFuel == 3) {
-            System.out.println("3");
-
+            CurrentFuel liquidGas = new CurrentFuel("Liquid gas", 2.69, 25.02, 0.88);
+            liquidGas.defineFuel();
         } else if (currentFuel == 4) {
-            System.out.println("4");
-
+            CurrentFuel coal = new CurrentFuel("Hard coal", 690, 7555.56, 0.75);
+            coal.defineFuel();
         } else if (currentFuel == 5) {
-            System.out.println("5");
-
+            CurrentFuel coke = new CurrentFuel("Coke (chark)", 850, 8097.22, 0.75);
+            coke.defineFuel();
         } else if (currentFuel == 6) {
-            System.out.println("6");
-
+            CurrentFuel coomb = new CurrentFuel("Coomb (coal dust)", 500, 6922.22, 0.60);
+            coomb.defineFuel();
         } else if (currentFuel == 7) {
-            System.out.println("7");
-
+            CurrentFuel wood = new CurrentFuel("Lumber wood", 250, 4513.89, 0.93);
+            wood.defineFuel();
         } else if (currentFuel == 8) {
-            System.out.println("8");
-
+            CurrentFuel woodchips = new CurrentFuel("Woodchips - sawdust", 250, 4513.89, 0.93);
+            woodchips.defineFuel();
         } else if (currentFuel == 9) {
             CurrentFuel pellet = new CurrentFuel("Pellet", 600, 4986.11, 0.93);
             pellet.defineFuel();
-
         } else if (currentFuel == 10) {
-            System.out.println("10");
-
+            CurrentFuel woodWaste = new CurrentFuel("Wood waste", 200, 5000.00, 0.93);
+            woodWaste.defineFuel();
         } else if (currentFuel == 11) {
-            System.out.println("11");
-
+            CurrentFuel electric = new CurrentFuel("Electric energy", 0.55, 1, 1);
+            electric.defineFuel();
         } else if (currentFuel == 12) {
-            System.out.println("12");
-
+            CurrentFuel lowPump = new CurrentFuel("Low temp. heat pump", 0.55, 1, 5);
+            lowPump.defineFuel();
         } else if (currentFuel == 13) {
-            System.out.println("13");
+            CurrentFuel pump = new CurrentFuel("Heat pump COP=3.7", 0.55, 1, 3.7);
+            pump.defineFuel();
 
         }
 
@@ -141,19 +135,52 @@ public class FuelChange {
         System.out.println("Choose your current energy source by inserting a corresponding number from the list above. ");
         System.out.println(" ");
 
-        int newFuel = scan.nextInt();
+        int plannedFuel = scan.nextInt();
 
-        if (newFuel == currentFuel) {
+        if (plannedFuel == currentFuel) {
             System.out.println("You have picked the same fuel as your current energy source. Please start over.");
-        } else if (newFuel == 1) {
-            System.out.println("1");
 
-        } else if (newFuel == 2) {
-            PlannedFuel coal = new PlannedFuel("Coal", 690, 7555.56, 0.75);
+        } else if (plannedFuel == 1) {
+            CurrentFuel gas = new CurrentFuel("Natural gas", 2.17, 34.40, 1.05);
+            gas.defineFuel();
+        } else if (plannedFuel == 2) {
+            PlannedFuel oil = new PlannedFuel("Heating oil", 3.99, 27.20, 0.88);
+            oil.defineFuel();
+        } else if (plannedFuel == 3) {
+            PlannedFuel liquidGas = new PlannedFuel("Liquid gas", 2.69, 25.02, 0.88);
+            liquidGas.defineFuel();
+        } else if (plannedFuel == 4) {
+            PlannedFuel coal = new PlannedFuel("Hard coal", 690, 7555.56, 0.75);
             coal.defineFuel();
-//          coal.fuelTransition(currentFuel);
-
+        } else if (plannedFuel == 5) {
+            PlannedFuel coke = new PlannedFuel("Coke (chark)", 850, 8097.22, 0.75);
+            coke.defineFuel();
+        } else if (plannedFuel == 6) {
+            PlannedFuel coomb = new PlannedFuel("Coomb (coal dust)", 500, 6922.22, 0.60);
+            coomb.defineFuel();
+        } else if (plannedFuel == 7) {
+            PlannedFuel wood = new PlannedFuel("Lumber wood", 250, 4513.89, 0.93);
+            wood.defineFuel();
+        } else if (plannedFuel == 8) {
+            PlannedFuel woodChips = new PlannedFuel("Woodchips - sawdust", 250, 4513.89, 0.93);
+            woodChips.defineFuel();
+        } else if (plannedFuel == 9) {
+            PlannedFuel pellet = new PlannedFuel("Pellet", 600, 4986.11, 0.93);
+            pellet.defineFuel();
+        } else if (plannedFuel == 10) {
+            PlannedFuel woodWaste = new PlannedFuel("Wood waste", 200, 5000.00, 0.93);
+            woodWaste.defineFuel();
+        } else if (plannedFuel == 11) {
+            PlannedFuel electric = new PlannedFuel("Electric energy", 0.55, 1, 1);
+            electric.defineFuel();
+        } else if (plannedFuel == 12) {
+            PlannedFuel lowPump = new PlannedFuel("Low temp. heat pump", 0.55, 1, 5);
+            lowPump.defineFuel();
+        } else if (plannedFuel == 13) {
+            PlannedFuel pump = new PlannedFuel("Heat pump COP=3.7", 0.55, 1, 3.7);
+            pump.defineFuel();
         }
+
 
     }
 
