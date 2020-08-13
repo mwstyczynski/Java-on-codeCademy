@@ -21,14 +21,15 @@ public class FuelChange {
     //    Methods to be called FROM CHILD (different in every fuel, because of units tonne/m3/kg kWh/kg kWh/tonne, etc - multiple variables)
     //    1. Define fuel
     public void defineFuel() {
-        System.out.println("Current energy source                   " + fuelName);
-        System.out.println("Caloric value                           " + caloricValue + " kWh/kg");
-        System.out.println("Average cost                            " + pricePerUnit + " PLN per tone");
+        System.out.println("Energy source                   " + fuelName);
+        System.out.println("Caloric value                           " + caloricValue + " kWh/unit");
+        System.out.println("Average cost                            " + pricePerUnit + " PLN per unit");
         System.out.println("Common heat source efficiency           " + heatSourceEfficiency * 100 + " %");
 
         DecimalFormat df2 = new DecimalFormat("#.##");
         double pricePerKWH = pricePerUnit / (caloricValue * heatSourceEfficiency);
         System.out.println("Price of 1kWh                           " + df2.format(pricePerKWH) + " PLN");
+        System.out.println(" ");
     }
 
     //    2. Comparison of current and planned fuels coefficients
@@ -43,6 +44,7 @@ public class FuelChange {
 
     //    3. Percentage calculations of the transition
     public void fuelTransition() {
+        System.out.println("                                  Current              Planned ");
         System.out.println("Transition                        " + fuelName + " ---> ");
         System.out.println("Caloric value                     " + caloricValue + " ---> ");
         System.out.println("Cost of 1kWh                      " + pricePerUnit + " ---> ");
@@ -58,12 +60,13 @@ public class FuelChange {
     public static void main(String[] args) {
         // Description
         System.out.println(" ");
-        System.out.println("Your current and planned types of energy source will determine the outcome of this calculation");
+        System.out.println("Your current and planned types of energy source will determine the outcome of this calculation.");
         System.out.println("Profitability and percentage values refer to electric energy costs which are the highest " +
-                "and it's described as 100% with 0.55zł/kWh");
+                "and it's described as 100% with 0.55zł/kWh.");
         System.out.println(" ");
         // User chooses current fuel
-        System.out.println("Choose your current energy source by inserting a corresponding number: ");
+        System.out.println("Please see presented list of available fuels.");
+        System.out.println(" ");
         System.out.println("Natural gas           1 ");
         System.out.println("Heating oil           2 ");
         System.out.println("Liquid gas            3 ");
@@ -78,9 +81,16 @@ public class FuelChange {
         System.out.println("Low temp. heat pump   12");
         System.out.println("Heat pump             13");
         System.out.println(" ");
+        System.out.println(" ");
 
+        System.out.println("Choose your current energy source by inserting a corresponding number: ");
         Scanner scan = new Scanner(System.in);
         int currentFuel = scan.nextInt();
+        System.out.println(" ");
+
+        System.out.println("Choose your planned energy source by inserting a corresponding number: ");
+        int plannedFuel = scan.nextInt();
+        System.out.println(" ");
 
 //  First method     set values inside the if statements and print out data at the end of loop
 //  Second method    use constructor for data insertion per fuel inside the loop
@@ -88,14 +98,16 @@ public class FuelChange {
 //  Forth method     set values in child classes using inheritance and polymorphism for easier code maintenance and readability and set method for calculations.
 //                   defineFuel(); method is in main class, but values used come from child classes
 
+        // Current fuel logic
+        System.out.println("CURRENT FUEL DESCRIPTION");
         if (currentFuel == 1) {
-            CurrentFuel gas = new CurrentFuel("Natural gas", 2.17, 34.40, 1.05);
+            CurrentFuel gas = new CurrentFuel("Natural gas", 2.17, 9.56, 1.05);
             gas.defineFuel();
         } else if (currentFuel == 2) {
-            CurrentFuel oil = new CurrentFuel("Heating oil", 3.99, 27.20, 0.88);
+            CurrentFuel oil = new CurrentFuel("Heating oil", 3.99, 10.47, 0.88);
             oil.defineFuel();
         } else if (currentFuel == 3) {
-            CurrentFuel liquidGas = new CurrentFuel("Liquid gas", 2.69, 25.02, 0.88);
+            CurrentFuel liquidGas = new CurrentFuel("Liquid gas", 2.69, 6.95, 0.88);
             liquidGas.defineFuel();
         } else if (currentFuel == 4) {
             CurrentFuel coal = new CurrentFuel("Hard coal", 690, 7555.56, 0.75);
@@ -127,27 +139,21 @@ public class FuelChange {
         } else if (currentFuel == 13) {
             CurrentFuel pump = new CurrentFuel("Heat pump", 0.55, 1, 3.7);
             pump.defineFuel();
-
         }
 
-        // User chooses new fuel
-        System.out.println(" ");
-        System.out.println("Choose your current energy source by inserting a corresponding number from the list above. ");
-        System.out.println(" ");
-
-        int plannedFuel = scan.nextInt();
-
+        //Planned fuel logic
+        System.out.println("PLANNED FUEL DESCRIPTION");
         if (plannedFuel == currentFuel) {
             System.out.println("You have picked the same fuel as your current energy source. Please start over.");
 
         } else if (plannedFuel == 1) {
-            CurrentFuel gas = new CurrentFuel("Natural gas", 2.17, 34.40, 1.05);
+            CurrentFuel gas = new CurrentFuel("Natural gas", 2.17, 9.56, 1.05);
             gas.defineFuel();
         } else if (plannedFuel == 2) {
-            PlannedFuel oil = new PlannedFuel("Heating oil", 3.99, 27.20, 0.88);
+            PlannedFuel oil = new PlannedFuel("Heating oil", 3.99, 10.47, 0.88);
             oil.defineFuel();
         } else if (plannedFuel == 3) {
-            PlannedFuel liquidGas = new PlannedFuel("Liquid gas", 2.69, 25.02, 0.88);
+            PlannedFuel liquidGas = new PlannedFuel("Liquid gas", 2.69, 6.95, 0.88);
             liquidGas.defineFuel();
         } else if (plannedFuel == 4) {
             PlannedFuel coal = new PlannedFuel("Hard coal", 690, 7555.56, 0.75);
@@ -180,9 +186,7 @@ public class FuelChange {
             PlannedFuel pump = new PlannedFuel("Heat pump", 0.55, 1, 3.7);
             pump.defineFuel();
         }
-
 //        fuelTransition();
-
     }
 
 }
